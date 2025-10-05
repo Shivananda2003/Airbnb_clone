@@ -1,0 +1,129 @@
+<% layout('layouts/boilerplate') -%>
+<style>
+    #filters{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .filter{
+        margin-top: 1.5rem;
+        margin-right: 2rem;
+        text-align: center;
+        opacity: 0.7;
+    }
+    .filter:hover{
+        opacity: 1 !important;
+        cursor: pointer;
+    }
+    .filter p{
+        font-size: 0.9rem;
+    }
+    .tax-button{
+        border: 1px solid black;
+        border-radius: 1rem;
+        padding: 1rem;
+        margin-left: 3rem;
+        display: flex;
+        align-items: center;
+    }
+    .tax-info{
+        display: none;
+    }
+
+</style>
+<body>
+    <div id="filters">
+        <div class="filter">
+            <div><i class="fa-solid fa-fire" style="color: #000000;"></i></div>
+            <p>Trending</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-person-swimming" style="color: #000000;"></i></i></div>
+            <p>Pools</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-bed" style="color: #000000;"></i></div>
+            <p>Rooms</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-city" style="color: #000000;"></i></div>
+            <p>Cities</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-cow" style="color: #000000;"></i></div>
+            <p>Farms</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain-city" style="color: #000000;"></i></div>
+            <p>Mountains</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-tree" style="color: #000000;"></i></div>
+            <p>Nature</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-snowflake" style="color: #000000;"></i></div>
+            <p>Arctic</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-campground" style="color: #000000;"></i></div>
+            <p>Camping</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-umbrella-beach" style="color: #000000;"></i></div>
+            <p>Beach</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-ship" style="color: #000000;"></i></div>
+            <p>Ship</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-water" style="color: #000000;"></i></div>
+            <p>River</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-circle-question" style="color: #000000;"></i></div>
+            <p>Others</p>
+        </div>
+        <div class="tax-button">
+            <div class="form-check-reverse form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+            </div>
+        </div> 
+    </div>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+        <% for(list of allListings) { %>
+            <a href="/listings/<%= list._id %>" class="listing-link">
+                <div class="card col listing-card">
+                <img src="<%=list.image.url%>" class="card-img-top" alt="listing_image" style="height: 20rem;">
+                <div class="card-img-overlay"></div>
+                    <div class="card-body mt-2">
+                        <p class="card-text">
+                            <b><%= list.title %></b> <br>
+                            &#8377; <%= list.price.toLocaleString("en-IN")%> / night
+                            <i class="tax-info">&nbsp; +18% GST</i>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        <% } %>
+    </div>
+    
+</body>
+
+<script>
+    let taxSwitch = document.getElementById("switchCheckDefault");
+    taxSwitch.addEventListener("click",()=>{
+        let taxInfo = document.getElementsByClassName("tax-info");
+        for(info of taxInfo){
+            if(info.style.display!="inline"){
+                info.style.display = "inline";
+            }
+            else{
+                info.style.display = "none";
+            } 
+        }
+    })
+</script>
+
